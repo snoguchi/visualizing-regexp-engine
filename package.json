@@ -1,0 +1,24 @@
+{
+  "name": "visualizing-regexp-engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server -d"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "copy-webpack-plugin": "^5.0.4",
+    "file-loader": "^4.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+    "learning-regexp-engine": "github:snoguchi/learning-regexp-engine",
+    "viz.js": "^2.1.2"
+  }
+}
