@@ -4,8 +4,8 @@ import workerURL from 'viz.js/full.render.js';
 
 const viz = new Viz({ workerURL });
 
-const createGraph = str => {
-  const regexp = dfareg.compile(str);
+const createGraph = (pattern, string) => {
+  const regexp = dfareg.compile(pattern);
   const nfaFragment = regexp.nfaFragment;
 
   const lines = [];
@@ -19,21 +19,31 @@ const createGraph = str => {
   }
 
   for (const state of nfaFragment.accepts) {
-    lines.push(`${state} [shape = doublecircle]`);
+    lines.push(`${state} [shape=doublecircle]`);
   }
 
+  const dfaRuntime = regexp.dfa.getRuntime();
+  const match = dfaRuntime.doesAccept(string);
+
+  for (const state of dfaRuntime.curState) {
+    lines.push(`${state} [style=filled, fillcolor="#FF0000"]`);
+  }
+  console.log(dfaRuntime.curState);
+
   return `digraph NFA {
-node [shape = circle]
-edge [arrowhead = vee]
-start [shape = none]
+graph [rankdir=LR]
+node [shape=circle]
+edge [arrowhead=vee]
+start [shape=none]
 ${lines.join('\n')}
 }`;
 }
 
 const render = async () => {
-  const str = document.getElementById('regexp').value;
+  const pattern = document.getElementById('pattern').value;
+  const string = document.getElementById('string').value;
   try {
-    const dot = createGraph(str);
+    const dot = createGraph(pattern, string);
     console.log(dot);
     const element = await viz.renderSVGElement(dot);
     document.getElementById('error').innerHTML = '';
@@ -45,9 +55,11 @@ const render = async () => {
   }
 }
 
-document.getElementById('regexp').addEventListener('input', ev => {
+document.getElementById('pattern').addEventListener('input', ev => {
   ev.target.value = ev.target.value.replace(/\s/g, '');
   render();
 });
+
+document.getElementById('string').addEventListener('input', ev => render());
 
 render();
