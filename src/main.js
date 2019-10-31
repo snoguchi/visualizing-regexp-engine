@@ -2,7 +2,7 @@ import dfareg from 'learning-regexp-engine';
 import Viz from 'viz.js';
 import workerURL from 'viz.js/full.render.js';
 
-const viz = new Viz({ workerURL });
+let viz = new Viz({ workerURL });
 
 const compile = (pattern, string, direction) => {
   const regexp = dfareg.compile(pattern);
@@ -43,16 +43,25 @@ const render = async () => {
   const pattern = document.getElementById('pattern').value;
   const string = document.getElementById('string').value;
   const direction = window.innerWidth > window.innerHeight ? 'LR' : 'TD';
-  console.log(direction);
+
+  let dot;
   try {
-    const dot = compile(pattern, string, direction);
+    dot = compile(pattern, string, direction);
+  } catch (e) {
+    console.error(e);
+    document.getElementById('error').innerHTML = e.toString();
+    return;
+  }
+
+  try {
     const element = await viz.renderSVGElement(dot);
     document.getElementById('error').innerHTML = '';
     document.getElementById('nfa').innerHTML = '';
     document.getElementById('nfa').append(element);
   } catch (e) {
-    document.getElementById('error').innerHTML = e.toString();
-    document.getElementById('nfa').innerHTML = '';
+    console.error(e);
+    document.getElementById('error').innerHTML = 'rendering error';
+    viz = new Viz({ workerURL });
   }
 };
 
