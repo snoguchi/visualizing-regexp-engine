@@ -55,7 +55,7 @@ const render = async () => {
 
   try {
     const element = await viz.renderSVGElement(dot);
-    document.getElementById('error').innerHTML = '';
+    document.getElementById('error').innerHTML = '&nbsp;';
     document.getElementById('nfa').innerHTML = '';
     document.getElementById('nfa').append(element);
   } catch (e) {
