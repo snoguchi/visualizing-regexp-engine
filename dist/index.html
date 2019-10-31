@@ -2,28 +2,47 @@
 <html>
   <head>
     <title>Visualizing Regexp Engine</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/skeleton.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/skeleton.css" />
     <script src="bundle.js" defer></script>
+    <style>
+      input {
+        margin-bottom: 0;
+      }
+    </style>
   </head>
   <body style="overflow-y: scroll; text-align: center;">
-    <a href="https://github.com/snoguchi/visualizing-regexp-engine" style="position:fixed; top:0; right:0">
-      <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
-    </a>
     <div class="container" style="text-align: center;">
       <form>
-          <h2 style="margin:3% 0">Regular Expression</h2>
+        <h2 style="margin:1em 0">Regular Expression</h2>
         <div>
-          <input type="text" id="pattern" value="(ABC*|abc*)*" autocomplete="off" style="font-size:160%; height:2em; text-align: center"/>
+          <input
+            type="text"
+            id="pattern"
+            value="(ABC*|abc*)*"
+            autocomplete="off"
+            style="font-size:160%; height:2em; text-align: center"
+          />
           <span style="padding: 0 1em; font-size:200%;">x</span>
-          <input type="text" id="string" value="AB" autocomplete="off" style="font-size:160%; height:2em; text-align: center"/>
+          <input
+            type="text"
+            id="string"
+            value="AB"
+            autocomplete="off"
+            style="font-size:160%; height:2em; text-align: center"
+          />
         </div>
         <div id="error" style="color:red"></div>
       </form>
     </div>
-    <h2 style="margin:1% 0 1% 0">Internal State (NFA)</h2>
+    <h2 style="margin:0.8em 0 0.6em 0">Internal State (NFA)</h2>
     <div id="nfa"></div>
+    <div style="margin:3em;">
+      <a href="https://github.com/snoguchi/visualizing-regexp-engine" style="color:black;"
+        >github.com/snoguchi/visualizing-regexp-engine</a
+      >
+    </div>
   </body>
 </html>

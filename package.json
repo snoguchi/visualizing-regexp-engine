@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server -d"
+    "start": "webpack-dev-server -d",
+    "format": "prettier --write \"src/*.js\" \"static/index.html\""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,11 @@
   },
   "dependencies": {
     "learning-regexp-engine": "github:snoguchi/learning-regexp-engine",
+    "prettier": "^1.18.2",
     "viz.js": "^2.1.2"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
   }
 }

@@ -4,7 +4,7 @@ import workerURL from 'viz.js/full.render.js';
 
 const viz = new Viz({ workerURL });
 
-const createGraph = (pattern, string) => {
+const compile = (pattern, string, direction) => {
   const regexp = dfareg.compile(pattern);
   const nfaFragment = regexp.nfaFragment;
 
@@ -31,20 +31,21 @@ const createGraph = (pattern, string) => {
   console.log(dfaRuntime.curState);
 
   return `digraph NFA {
-graph [rankdir=LR]
+graph [rankdir=${direction}]
 node [shape=circle]
 edge [arrowhead=vee]
 start [shape=none]
 ${lines.join('\n')}
 }`;
-}
+};
 
 const render = async () => {
   const pattern = document.getElementById('pattern').value;
   const string = document.getElementById('string').value;
+  const direction = window.innerWidth > window.innerHeight ? 'LR' : 'TD';
+  console.log(direction);
   try {
-    const dot = createGraph(pattern, string);
-    console.log(dot);
+    const dot = compile(pattern, string, direction);
     const element = await viz.renderSVGElement(dot);
     document.getElementById('error').innerHTML = '';
     document.getElementById('nfa').innerHTML = '';
@@ -53,7 +54,7 @@ const render = async () => {
     document.getElementById('error').innerHTML = e.toString();
     document.getElementById('nfa').innerHTML = '';
   }
-}
+};
 
 document.getElementById('pattern').addEventListener('input', ev => {
   ev.target.value = ev.target.value.replace(/\s/g, '');

@@ -1,4 +1,4 @@
 # visualizing-regexp-engine
 
-Live Demo
+Demo
 https://snoguchi.github.io/visualizing-regexp-engine/dist/
